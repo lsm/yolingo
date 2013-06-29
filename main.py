@@ -2,6 +2,7 @@ import webapp2
 import jinja2
 import hashlib
 import uuid
+import os
 
 from google.appengine.ext import db
 
@@ -10,7 +11,7 @@ jinja_environment = jinja2.Environment(
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        template = jinja_environment.get_template('boilerplate.html')
+        template = jinja_environment.get_template('index.html')
         self.response.out.write(template.render())
 
 app = webapp2.WSGIApplication([
