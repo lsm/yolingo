@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+</head>
+<body>
+
+
+<div>
+    <label>User Created</label>
+
+    <p id='userCreated'></p>
+</div>
+
+<div>
+    <label>User LoggedIn</label>
+
+    <p id='userLoggedIn'></p>
+</div>
+
+<div>
+    <label>Verify Email</label>
+
+    <p id='userVerifyEmail'></p>
+</div>
+
+<div>
+    <label>Article Created</label>
+
+    <p id='userArticleCreated'></p>
+</div>
+
+<div>
+    <label>Article Got</label>
+
+    <p id='userArticleGot'></p>
+</div>
+
+<div>
+    <label>Article Listed</label>
+
+    <p id='userArticleListed'></p>
+</div>
+
+<script src="https://da189i1jfloii.cloudfront.net/js/kinvey-js-0.9.15.min.js"></script>
+<script src="http://127.0.0.1:8080/js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript">
+    Object.defineProperty || document.write('<script src="path/to/es5-shim.min.js"><\/script>');
+</script>
+<script src="http://127.0.0.1:8080/js/yolingo.js"></script>
+<script type="text/javascript">
+    Y.user.create('test', '123456', 'senmiao.liu@gmail.com', function (err, user) {
+
+        $('#userCreated').html(JSON.stringify(err ? err : user.toJSON()));
+
+        Y.user.login('test', '123456', function (err, user) {
+
+            $('#userLoggedIn').html(JSON.stringify(err ? err : user.toJSON()));
+
+            Y.user.verifyEmail(function (err, result) {
+                $('#userVerifyEmail').html(JSON.stringify(err ? err : result));
+            });
+
+            var articleDoc = {
+                url: 'readwrite.com/2013/01/16/everything-as-a-service-its-happening-right-now',
+                title: 'Everything as a service - it\'s happening right now.',
+                content: 'Some content',
+                created_at: new Date
+            };
+
+            Y.article.create(articleDoc, function (err, articleObj) {
+                $('#userArticleCreated').html(JSON.stringify(err ? err : articleObj.toJSON()));
+
+                // get by id
+                var docId = articleObj.getId();
+                Y.article.get(docId, function (err, articleObj) {
+                    var html = [
+                        'url: ' + articleObj.get('url'),
+                        'title: ' + articleObj.get('title'),
+                        'content: ' + articleObj.get('content')
+                    ].join('<br />');
+                    $('#userArticleGot').html(JSON.stringify(err ? err : html));
+                });
+
+                // get list
+
+                Y.article.list(function (err, articles) {
+                    $('#userArticleListed').html(JSON.stringify(err ? err : articles));
+                });
+            });
+
+        });
+
+    });
+
+
+</script>
+</body>
+</html>
