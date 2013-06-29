@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Everything-as-a-Service: It's Happening Right Now</title>
+
+</head>
+<body>
+<h1>Everything-as-a-Service: It's Happening Right Now</h1>
+
+<p>
+    100 years from now, when the historians look back at the beginning of the 21st Century and shake their heads in
+    amazement that we hadn't yet figured out flying cars, one thing they should give us credit for is that we finally
+    figured out how to scale... everything. Even though the promise of the Web as a center of knowledge has been overrun
+    with rampant commercialism, sometimes commercial interests actually align with the delivery of knowledge.
+
+    Software, databases, customer relationship management… these are all key elements of information technology that
+    haver been pushed into the cloud to be deployed "as-a-Service" (or *aaS). This follows the model of
+    Software-as-a-Service (SaaS), Data-as-a-Service (DaaS), and the like. Other, more rudimentary, aspects of IT have
+    already been deployed this way, to great effect: Witness how online bookseller Amazon now dominates cloud computing
+    by introducing Infrastructure-as-a-Service (IaaS) a few years ago.
+
+    As the idea of a sharing and scaling services that were otherwise once local and isolated continues to spread, we
+    are now seeing just about every function you can imagine being delivered as-a-service to any business who wants
+    them.
+
+    Marketing-as-a-Service
+
+    The most recent example of this new *aaS trend is the release of the Vocus Marketing Suite, a hosted marketing
+    service that enables small- to medium-sized businesses to access marketing tools and (more importantly) expertise
+    for those SMBs to use.
+
+    Anyone, really, can toss together a bunch of tools to market with social media, email and press releases. A one-pane
+    aggregate application could handle that. But using the publicly available big data that's readily available on the
+    Internet, Vocus' new application is designed to push out very targeted information that pertains to a business'
+    marketing goals.
+
+    Say a business wants to sell jewelry, outlined You Mon Tsang, Vocus' Senior Vice President of Products. The
+    Marketing Suite will listen for keywords on social media channels to determine who's an influencer in the jewelry
+    scene or maybe just which desperate significant other is out there looking to buy an anniversary gift fast.
+
+    If you're using email marketing, the tool will make sure you're not spamming potential clients, either in frequency
+    or through the language you're using. Human editors will also step in to help craft messaging. The key to this new
+    service making the expertise affordable to SMBs who might otherwise have to go it alone.
+
+    Big data, as mentioned, makes this all possible. In the past, marketing was sort of a gray area when it came to hard
+    results. Using a new class of metrics, marketing's return on investment is now much more easily calculated, and
+    results can be concretely measured.
+
+    Healthcare-as-a-Service
+
+    There are some who would argue that some things still don't scale very well. Medical information and healthcare
+    services seem to be one of them. Sure, you can go on to WebMD and find out how to treat the cold that seems to be
+    coming on… but without medical expertise at your disposal, you may decide that you really have the bubonic plague.
+    And while "the plague is upon us" has a nice historical ring, it also tends to be a bit alarmist.
+
+    Healthcare professionals don't scale terribly well online, if only because the medical arts depend, usually, on
+    face-to-face contact between the patient and the caregiver.
+
+    This is not to say that some aspects of healthcare can't be found in *aaS. A new startup in Indiana called hc1.com,
+    for instance, has created a very niche cloud approach to resource management for medical labs, so they can work with
+    multiple providers and deliver analyses more efficiently.
+
+    As medical providers continue to work with government and market requirements to use electronic health records,
+    vendors like ClearDATA are working the edges, delivering secure messaging and cloud computing services.
+
+    So healthcare and medical-sector services are finding their way into the cloud, though still more on the edges
+    instead of a full-on approach. But after a few more years of medical-monitoring innovation, who's to say you won't
+    someday get a text message that says "Stop eating that pastrami, your arteries are about to pop!"
+
+    Anything-as-a-Service?
+
+    The world around us, thanks to connectivity and much faster computing platforms, seems destined to push all manner
+    of services on to the Internet, where they can be acquired on demand, without having to build your own
+    infrastructure to support them. Distance learning, shopping, news gathering and many more are already there. Others
+    are coming, and there's no telling how far the trend will go.
+
+    Image courtesy of Shutterstock.
+</p>
+
+<script src="http://127.0.0.1:8080/js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript">
+    Object.defineProperty || document.write('<script src="path/to/es5-shim.min.js"><\/script>');
+</script>
+<!--<script src="http://127.0.0.1:8080/js/yolingo.js"></script>-->
+<script type="text/javascript">
+    $(function () {
+        var translateUrl = 'http://yo-lingo.appspot.com/ajax/translate';
+        $(document.body).bind('mouseup', function (e) {
+            var selection;
+            if (window.getSelection) {
+                selection = window.getSelection();
+            } else if (document.selection) {
+                selection = document.selection.createRange();
+            }
+            var str = selection.toString();
+            if (str) {
+                alert('Word selected: ' + str);
+                $.ajax({
+                    url: translateUrl,
+                    data: {text: str}
+                }).done(function (data, textStatus) {
+                            alert('Translation: ' + data);
+                 }).fail(function (xhr, textStatus, error) {
+                            alert('Error: ' + textStatus);
+                        });
+            }
+        });
+    });
+
+</script>
+</body>
+</html>
