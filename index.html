@@ -1,20 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<meta charset="utf-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>Yolingo</title>
-		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<link href="/static/css/main.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
-		Yolingo lets you relearn languages reading what you already do online.<br>
-		1. Enter the URL of a foreign-language website<br>
-		2. Highlight words or phrases you don't understand to see its meaning<br>
-		3. You will occasionally see those words with an icon later<br>
-		4. Click the word to launch a minigame which lets you prove your knowledge<br>
-		5. Rack up points from your words and rediscover your knowledge<br><br>
-		<form name="user" action="/reader" method="get">
-    	URL: <input type="text" name="url"><br>
-    	<button type="submit">Go</button>
-    	</form>
-	</body>
-</html>
+		<div id="background">
+			<div id="Background"><img src="/static/img/Background.png"></div>
+			<div id="Layer1"><img src="/static/img/Layer1.png"></div>
+			<div id="Text"><img src="/static/img/Text.png"></div>
+			<form name="user" action="/reader" method="get">
+			<input type="text" name="url" id="input">
+			<button type="submit" id="Layer2"><img src="/static/img/Layer2.png"></button>
+			</form>
+		</div>
+ </body>
+ </html>
