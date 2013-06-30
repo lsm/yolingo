@@ -58,7 +58,7 @@
 
         var translateUrl = '/ajax/translate';
         $(document.body).bind('mouseup', function (e) {
-            if (/r|y/.test($(e.target).attr('class'))) {
+            if (/^(r|y)$/.test($(e.target).attr('class'))) {
                 return;
             }
             var selection;
@@ -72,16 +72,13 @@
             var start = range.startOffset;
             var end = range.endOffset;
             if (selectedStr && start != end) {
-                //                alert('Word selected: ' + selectedStr);
                 $.ajax({
                     url: translateUrl,
                     data: {text: selectedStr}
                 }).done(function (data, textStatus) {
-                            //                            alert('Translation: ' + data);
                             replaceWords(selectedStr, data, e.target);
                         }).fail(function (xhr, textStatus, error) {
                             alert('Error: ' + textStatus);
-                            //                            replaceWords(selectedStr, 'The translation');
                         });
             }
         });
