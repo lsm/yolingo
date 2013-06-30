@@ -8,6 +8,7 @@ import os
 import cgi
 
 from google.appengine.ext import db
+from microsofttranslator import Translator
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -31,7 +32,9 @@ class Reader(webapp2.RequestHandler):
 
 class AJAXTranslate(webapp2.RequestHandler):
     def get(self):
-        pass
+        text = self.request.get('text')
+        translator = Translator('YoLingoApp', 'ArNe8ZslXG7fKZmKf22lUGCFhEDp22sSxuKZ1d64H84=')
+        self.response.out.write(translator.translate(text, "en"))
 
 class User(db.Model):
     word_list = db.StringListProperty()
@@ -39,5 +42,5 @@ class User(db.Model):
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/reader', Reader),
-    ('/ajax/translate', AJAX)
+    ('/ajax/translate', AJAXTranslate)
 ], debug=True)
