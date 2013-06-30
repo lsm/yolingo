@@ -1,0 +1,57 @@
+ body {
+	margin: 0;
+	padding: 0;
+ }
+ 
+ #background 
+{ 
+	 left: 0px; 
+	 top: 0px; 
+	 position: relative; 
+	 margin-left: auto; 
+	 margin-right: auto; 
+	 width: 1024px;
+	 height: 768px; 
+	 overflow: hidden;
+	 z-index:0;
+	} 
+
+ #Background 
+{ 
+	 left: 0px; 
+	 top: 0px; 
+	 position: absolute; 
+	 width: 1024px;
+	 height: 768px;
+	 z-index:1;
+} 
+
+ #Layer1 
+{ 
+	 left: 173px; 
+	 top: 65px; 
+	 position: absolute; 
+	 width: 710px;
+	 height: 172px;
+	 z-index:2;
+} 
+
+ #Text 
+{ 
+	 left: 245px; 
+	 top: 343px; 
+	 position: absolute; 
+	 width: 518px;
+	 height: 43px;
+	 z-index:3;
+} 
+
+ #Layer2 
+{ 
+	 left: 747px; 
+	 top: 421px; 
+	 position: absolute; 
+	 width: 136px;
+	 height: 63px;
+	 z-index:4;
+} 
