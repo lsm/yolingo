@@ -48,10 +48,11 @@ class Reader(webapp2.RequestHandler):
 class AJAXTranslate(webapp2.RequestHandler):
     def get(self):
         text = self.request.get('text')
-        self.response.out.write("{Success: true, Translation: '" + translate(text)+ "'}")
-        user = db.get("agxkZXZ-eW8tbGluZ29yEQsSBFVzZXIYgICAgICAwAsM")
+        #self.response.out.write("{Success: true, Translation: '" + translate(text)+ "'}")
+        self.response.out.write(translate(text).lower())
+        user = db.get("agpzfnlvLWxpbmdvcgoLEgRVc2VyGAEM")
         if text not in user.word_list:
-            user.word_list.append(text) #transparently add word to word list
+            user.word_list.append(text.lower()) #transparently add word to word list
             user.put()
 
 class AJAXQuiz(webapp2.RequestHandler):
@@ -68,7 +69,7 @@ class AJAXQuiz(webapp2.RequestHandler):
             'contact', 'return', 'above', 'exist', 'adjoining', 'grew',
             'stepped', 'entering', 'bright', 'competitive', 'environment',
             'government', 'rested'] #read from file in future
-        user = db.get("agxkZXZ-eW8tbGluZ29yEQsSBFVzZXIYgICAgICAwAsM") #this should get the user's login
+        user = db.get("agpzfnlvLWxpbmdvcgoLEgRVc2VyGAEM") #this should get the user's login
         text = self.request.get('text')
         if text not in user.word_list:
             self.error('416') #out of range error

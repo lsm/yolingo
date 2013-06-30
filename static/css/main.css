@@ -205,3 +205,46 @@ Tooltip
   height: auto;
   width: auto;
 }
+ #Layer1 
+{ 
+    left: 254px; 
+    top: 102px; 
+    position: absolute; 
+    width: 519px;
+    height: 126px;
+    z-index:2;
+} 
+
+ #Text 
+{ 
+    left: 370px; 
+    top: 277px; 
+    position: absolute; 
+    width: 271px;
+    height: 23px;
+    z-index:3;
+} 
+
+ #Layer2 
+{ 
+    left: 623px; 
+    top: 337px; 
+    position: absolute; 
+    width: 80px;
+    height: 37px;
+    z-index:4;
+} 
+
+#input {
+   left: 400px;
+   top: 337px;
+   position: absolute;
+   width: 200px;
+   height: 54px;
+   font-size: 20pt;
+}
+
+button {
+   background: transparent;
+   border: none;
+}
