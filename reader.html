@@ -6,32 +6,53 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
+
+<div id="content" class="content">
 {{article}}
+</div>
 <script src="/js/jquery-1.10.1.min.js"></script>
 <script type="text/javascript">
     $(function () {
-        var translateUrl = 'http://yo-lingo.appspot.com/ajax/translate';
-        $(document.body).bind('mouseup', function (e) {
-            var selection;
-            if (window.getSelection) {
-                selection = window.getSelection();
-            } else if (document.selection) {
-                selection = document.selection.createRange();
+
+            function replaceWords(word, translation, start, end) {
+                var redStr = ['<span class="r">', word,' <i class="v1">', translation, '</i></span>'].join('');
+                var yellowStr = ['<span class="y"> ', word, ' <i class="v1">', translation, '</i></span>'].join('');
+                var html = $('#content').html();
+                var match = new RegExp('\\s' + word + '\\s', 'g');
+                var startStr = html.substring(0, start);
+                startStr = startStr.replace(match, yellowStr);
+                var endStr = html.substring(end);
+                endStr = endStr.replace(match, yellowStr);
+                $('#content').html(startStr + redStr + endStr);
             }
-            var str = selection.toString();
-            if (str) {
-                alert('Word selected: ' + str);
-                $.ajax({
-                    url: translateUrl,
-                    data: {text: str}
-                }).done(function (data, textStatus) {
-                            alert('Translation: ' + data);
-                        }).fail(function (xhr, textStatus, error) {
-                            alert('Error: ' + textStatus);
-                        });
-            }
+
+            var translateUrl = 'http://yo-lingo.appspot.com/ajax/translate';
+            $(document.body).bind('mouseup', function (e) {
+                var selection;
+                if (window.getSelection) {
+                    selection = window.getSelection();
+                } else if (document.selection) {
+                    selection = document.selection.createRange();
+                }
+                var selectedStr = selection.toString();
+                var range = selection.getRangeAt(0);
+                var start = range.startOffset;
+                var end = range.endOffset;
+                if (selectedStr) {
+    //                alert('Word selected: ' + selectedStr);
+                    $.ajax({
+                        url: translateUrl,
+                        data: {text: selectedStr}
+                    }).done(function (data, textStatus) {
+    //                            alert('Translation: ' + data);
+                                replaceWords(selectedStr, data, start, end);
+                            }).fail(function (xhr, textStatus, error) {
+                                alert('Error: ' + textStatus);
+    //                            replaceWords(selectedStr, 'The translation');
+                            });
+                }
+            });
         });
-    });
 </script>
 </body>
 </html>
