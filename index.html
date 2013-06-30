@@ -6,19 +6,15 @@
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 	</head>
 	<body>
-		Yolingo lets you relearn languages doing what you already do online.<br>
-		1. Enter the URL of a Spanish website<br>
+		Yolingo lets you relearn languages reading what you already do online.<br>
+		1. Enter the URL of a foreign-language website<br>
 		2. Highlight words or phrases you don't understand to see its meaning<br>
 		3. You will occasionally see those words with an icon later<br>
 		4. Click the word to launch a minigame which lets you prove your knowledge<br>
 		5. Rack up points from your words and rediscover your knowledge<br><br>
-		Sign up for an account to collect points and learn words across the web<br>
-		<form name="user" action="/auth" method="post">
-		Username: <input type="text" name="username"><br>
-    	Password: <input type="password" name="password"></p>
-    	<button type="submit" name="action" value="login">Log in</button><br>
-    	<button type="submit" name="action" value="signup">Sign up</button><br>
+		<form name="user" action="/reader" method="get">
+    	URL: <input type="text" name="url"><br>
+    	<button type="submit">Go</button>
     	</form>
-		Or use one of the demo articles below
 	</body>
 </html>
