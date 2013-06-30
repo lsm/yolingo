@@ -57,6 +57,6 @@ app = webapp2.WSGIApplication([
     ('/ajax/translate', AJAXTranslate),
     ('/ajax/quiz', AJAXQuiz),
     ('/ajax/answer', AJAXAnswer),
-    ('/admin/createuser', CreateUser)
+    ('/admin/createuser', CreateUser),
     ('/ajax/translate', AJAXTranslate)
 ], debug=True)

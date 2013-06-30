@@ -4,55 +4,88 @@
     <meta charset="utf-8">
     <title>{{title}}</title>
     <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
 </head>
 <body>
 
-<div id="content" class="content">
-{{article}}
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3 sidebar">
+            <!--Sidebar content-->
+            <label style="margin: 10px 10px 0px 10px;">Yo Progress!</label>
+            <div>
+                <label style="color: #000000; font-size: 14px;">Words Learned</label>
+                <p id="progress">0</p>
+            </div>
+            <label style="margin: 10px 10px 0px 10px;">Yo Wordbank!</label>
+            <div id="wordbank">
+
+            </div>
+        </div>
+        <div class="span9">
+            <!--Body content-->
+            <div id="content" class="content">
+                {{article}}
+            </div>
+        </div>
+    </div>
 </div>
+
 <script src="/static/js/jquery-1.10.1.min.js"></script>
 <script type="text/javascript">
     $(function () {
-
-            function replaceWords(word, translation, start, end) {
-                var redStr = ['<span class="r">', word,' <i class="v1">', translation, '</i></span>'].join('');
-                var yellowStr = ['<span class="y"> ', word, ' <i class="v1">', translation, '</i></span>'].join('');
-                var html = $('#content').html();
-                var match = new RegExp('\\s' + word + '\\s', 'g');
-                var startStr = html.substring(0, start);
-                startStr = startStr.replace(match, yellowStr);
-                var endStr = html.substring(end);
-                endStr = endStr.replace(match, yellowStr);
-                $('#content').html(startStr + redStr + endStr);
-            }
-
-            var translateUrl = 'http://yo-lingo.appspot.com/ajax/translate';
-            $(document.body).bind('mouseup', function (e) {
-                var selection;
-                if (window.getSelection) {
-                    selection = window.getSelection();
-                } else if (document.selection) {
-                    selection = document.selection.createRange();
-                }
-                var selectedStr = selection.toString();
-                var range = selection.getRangeAt(0);
-                var start = range.startOffset;
-                var end = range.endOffset;
-                if (selectedStr) {
-    //                alert('Word selected: ' + selectedStr);
-                    $.ajax({
-                        url: translateUrl,
-                        data: {text: selectedStr}
-                    }).done(function (data, textStatus) {
-    //                            alert('Translation: ' + data);
-                                replaceWords(selectedStr, data, start, end);
-                            }).fail(function (xhr, textStatus, error) {
-                                alert('Error: ' + textStatus);
-    //                            replaceWords(selectedStr, 'The translation');
-                            });
-                }
+        $('#content').html($('#content').html().replace(/<[\/]{0,1}(A|a)[^><]*>/g, ""));
+        function replaceWords(word, translation, target) {
+            var quiz = 'Quizzzzz...';
+            var redStr = [' <span class="r ' + word + '">', word, ' <i class="v1">', translation, '</i></span> '].join('');
+            var yellowStr = [' <span class="y ' + word + '">', word, '<i class="v1">', quiz, '</i></span> '].join('');
+            var match = new RegExp('\\b' + word + '\\b', 'g');
+            $('#content p').each(function (idx, el) {
+                var $el = $(el);
+                var html = $el.html();
+                var replaceStr = el === target ? redStr : yellowStr;
+                html = html.replace(match, replaceStr);
+                $el.html(html);
             });
+
+            var bankId = '#bank_' + word;
+            if ($(bankId).length === 0) {
+                var count = Number($('#progress').html());
+                $('#progress').html(count + 1);
+                $('#wordbank').append('<p id="'+bankId+'">'+word+'</p>');
+            }
+        }
+
+        var translateUrl = '/ajax/translate';
+        $(document.body).bind('mouseup', function (e) {
+            if (/r|y/.test($(e.target).attr('class'))) {
+                return;
+            }
+            var selection;
+            if (window.getSelection) {
+                selection = window.getSelection();
+            } else if (document.selection) {
+                selection = document.selection.createRange();
+            }
+            var selectedStr = selection.toString();
+            var range = selection.getRangeAt(0);
+            var start = range.startOffset;
+            var end = range.endOffset;
+            if (selectedStr && start != end) {
+                //                alert('Word selected: ' + selectedStr);
+                $.ajax({
+                    url: translateUrl,
+                    data: {text: selectedStr}
+                }).done(function (data, textStatus) {
+                            //                            alert('Translation: ' + data);
+                            replaceWords(selectedStr, data, e.target);
+                        }).fail(function (xhr, textStatus, error) {
+                            alert('Error: ' + textStatus);
+                            //                            replaceWords(selectedStr, 'The translation');
+                        });
+            }
         });
+    });
 </script>
 </body>
 </html>
