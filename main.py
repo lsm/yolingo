@@ -13,6 +13,9 @@ from microsofttranslator import Translator
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
+class User(db.Model):
+    word_list = db.StringListProperty()
+
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja_environment.get_template('index.html')
@@ -36,11 +39,23 @@ class AJAXTranslate(webapp2.RequestHandler):
         translator = Translator('YoLingoApp', 'ArNe8ZslXG7fKZmKf22lUGCFhEDp22sSxuKZ1d64H84=')
         self.response.out.write(translator.translate(text, "en"))
 
-class User(db.Model):
-    word_list = db.StringListProperty()
+class AJAXQuiz(webapp2.RequestHandler):
+    def get(self):
+        pass
+
+class AJAXAnswer(webapp2.RequestHandler):
+    def get(self):
+        pass
+
+class CreateUser:
+    user = User(word_list=[])
+    user.put()
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/reader', Reader),
-    ('/ajax/translate', AJAXTranslate)
+    ('/ajax/translate', AJAXTranslate),
+    ('/ajax/quiz', AJAXQuiz),
+    ('/ajax/answer', AJAXAnswer),
+    ('/admin/createuser', CreateUser)
 ], debug=True)
