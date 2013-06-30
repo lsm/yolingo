@@ -113,4 +113,9 @@ var Y = {};
     });
   };
 
+  Y.word = {};
+  Y.word.create = function (doc, callback) {
+
+  };
+
 }());
