@@ -1,11 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>{{title}}</title>
-		<link rel="stylesheet" type="text/css" href="css/main.css">
-	</head>
-	<body>
-		{{article}}
-	</body>
+<head>
+    <meta charset="utf-8">
+    <title>{{title}}</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+{{article}}
+
+<script src="/js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var translateUrl = 'http://yo-lingo.appspot.com/ajax/translate';
+        $(document.body).bind('mouseup', function (e) {
+            var selection;
+            if (window.getSelection) {
+                selection = window.getSelection();
+            } else if (document.selection) {
+                selection = document.selection.createRange();
+            }
+            var str = selection.toString();
+            if (str) {
+                alert('Word selected: ' + str);
+                $.ajax({
+                    url: translateUrl,
+                    data: {text: str}
+                }).done(function (data, textStatus) {
+                            alert('Translation: ' + data);
+                        }).fail(function (xhr, textStatus, error) {
+                            alert('Error: ' + textStatus);
+                        });
+            }
+        });
+    });
+</script>
+</body>
 </html>
