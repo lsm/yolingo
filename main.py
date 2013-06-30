@@ -33,7 +33,8 @@ class Reader(webapp2.RequestHandler):
 class AJAXTranslate(webapp2.RequestHandler):
     def get(self):
         text = self.request.get('text')
-        translator = Translator('YoLingoApp', 'ArNe8ZslXG7fKZmKf22lUGCFhEDp22sSxuKZ1d64H84=')
+        translator = Translator('YoLingoApp2', '4D6+ku6Be8JmzmfD26mJj4yp+xHvxu1I782n9IA3tLI=
+=')
         self.response.out.write(translator.translate(text, "en"))
 
 class User(db.Model):
