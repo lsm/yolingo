@@ -31,7 +31,7 @@ Tooltip
   line-height: 24px;
 }
 
-.content span {
+.content span.default {
   background: #eee;
   border: 1px solid #444;
   cursor: pointer;

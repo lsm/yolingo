@@ -13,11 +13,14 @@
         <div class="span3 sidebar">
             <!--Sidebar content-->
             <label style="margin: 10px 10px 0px 10px;">Yo Progress!</label>
+
             <div>
                 <label style="color: #000000; font-size: 14px;">Words Learned</label>
+
                 <p id="progress">0</p>
             </div>
             <label style="margin: 10px 10px 0px 10px;">Yo Wordbank!</label>
+
             <div id="wordbank">
 
             </div>
@@ -35,10 +38,48 @@
 <script type="text/javascript">
     $(function () {
         $('#content').html($('#content').html().replace(/<[\/]{0,1}(A|a)[^><]*>/g, ""));
+
+        var randomList = ['redistribute', 'sample', 'fresh', 'slowly', 'feature',
+            'exemplify', 'click', 'happen', 'laugh', 'creation',
+            'challenging', 'compete', 'technology', 'drenched', 'scale',
+            'twine', 'destination', 'broad', 'worth', 'questionable',
+            'maroon', 'stylish', 'port', 'nested', 'martyr', 'validate',
+            'balloon', 'born', 'offend', 'stable', 'label', 'connect',
+            'people', 'attraction', 'severely', 'gigantic', 'establishment',
+            'mental', 'evaluate', 'grand', 'yell', 'posing', 'rounded',
+            'design', 'fail', 'milk', 'golden', 'celestial', 'test',
+            'contact', 'return', 'above', 'exist', 'adjoining', 'grew',
+            'stepped', 'entering', 'bright', 'competitive', 'environment',
+            'government', 'rested'];
+
+        function getRandomIndex(max) {
+            return Math.floor(Math.random() * (max + 1));
+        }
+
+        function generateQuiz(word, translation) {
+            var quiz = [];
+            var answerPos = getRandomIndex(4);
+            var quizHtml = 'Choose an answer for "' + word + '": <br />';
+            while (quiz.length < 5) {
+                var wrong = randomList[getRandomIndex(randomList.length)];
+                if (quiz.length === answerPos) {
+                    quiz.push(translation);
+                    quizHtml += '<a class="quiz-option" word="'+word+'" href="#option-' + word + '-' + translation + '-'
+                            + (new Date).getTime() + '">' + translation + '</a><br />';
+                } else if (wrong && quiz.indexOf(wrong) === -1) {
+                    quiz.push(wrong);
+                    quizHtml += '<a class="quiz-option" word="'+word+'" href="#option-' + word + '-' + wrong + '-'
+                            + (new Date).getTime() + '">' + wrong + '</a><br />';
+                }
+            }
+            return quizHtml;
+        }
+
         function replaceWords(word, translation, target) {
-            var quiz = 'Quizzzzz...';
-            var redStr = [' <span class="r ' + word + '">', word, ' <i class="v1">', translation, '</i></span> '].join('');
-            var yellowStr = [' <span class="y ' + word + '">', word, '<i class="v1">', quiz, '</i></span> '].join('');
+            word = word.trim();
+            var quiz = generateQuiz(word, translation);
+            var redStr = [' <span class="r default ' + word + '">', word, ' <i class="v1">', translation, '</i></span> '].join('');
+            var yellowStr = [' <span class="y default ' + word + '">', word, '<i class="v1" answer="' + translation + '">', quiz, '</i></span> '].join('');
             var match = new RegExp('\\b' + word + '\\b', 'g');
             $('#content p').each(function (idx, el) {
                 var $el = $(el);
@@ -48,11 +89,23 @@
                 $el.html(html);
             });
 
-            var bankId = '#bank_' + word;
+            $('a.quiz-option').bind('click', function (e) {
+                var word = $(this).attr('word');
+                console.log($(this).html(), $(this).parent().attr('answer'), word);
+                if ($(this).html() === $(this).parent().attr('answer')) {
+                    alert('Correct!');
+                    $('span.' + word).replaceWith(word);
+                    $('#bank_' + word).remove();
+                } else {
+                    alert('Wrong!');
+                }
+            });
+
+            var bankId = 'bank_' + word;
             if ($(bankId).length === 0) {
                 var count = Number($('#progress').html());
                 $('#progress').html(count + 1);
-                $('#wordbank').append('<p id="'+bankId+'">'+word+'</p>');
+                $('#wordbank').append('<p id="' + bankId + '">' + word + '</p>');
             }
         }
 
@@ -67,7 +120,7 @@
             } else if (document.selection) {
                 selection = document.selection.createRange();
             }
-            var selectedStr = selection.toString();
+            var selectedStr = selection.toString().trim();
             var range = selection.getRangeAt(0);
             var start = range.startOffset;
             var end = range.endOffset;
