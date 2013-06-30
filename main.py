@@ -36,7 +36,8 @@ class Reader(webapp2.RequestHandler):
 class AJAXTranslate(webapp2.RequestHandler):
     def get(self):
         text = self.request.get('text')
-        translator = Translator('YoLingoApp', 'ArNe8ZslXG7fKZmKf22lUGCFhEDp22sSxuKZ1d64H84=')
+        translator = Translator('YoLingoApp2', '4D6+ku6Be8JmzmfD26mJj4yp+xHvxu1I782n9IA3tLI=
+=')
         self.response.out.write(translator.translate(text, "en"))
 
 class AJAXQuiz(webapp2.RequestHandler):
@@ -54,8 +55,13 @@ class CreateUser:
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/reader', Reader),
+<<<<<<< HEAD
     ('/ajax/translate', AJAXTranslate),
     ('/ajax/quiz', AJAXQuiz),
     ('/ajax/answer', AJAXAnswer),
     ('/admin/createuser', CreateUser)
 ], debug=True)
+=======
+    ('/ajax/translate', AJAXTranslate)
+], debug=True)
+>>>>>>> e5aa9f43a22ae5057d3276353c21cec0181f5bb9
